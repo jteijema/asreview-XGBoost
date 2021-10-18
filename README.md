@@ -28,7 +28,7 @@ Note that `TF-IDF` works best as FE.
 ## To-Do
 CV the model every iteration.
 
-## WHy use XGBoost?
+## Why use XGBoost?
 From https://www.kdnuggets.com/2017/10/xgboost-concise-technical-overview.html
  
 XGBoost is scalable in distributed as well as memory-limited settings. This scalability is due to several algorithmic optimizations.
