@@ -1,5 +1,7 @@
 # XGBoost implementation for ASReview
-This repository contains an extension for ASReview based on [xgboost](https://github.com/dmlc/xgboost). The hyperparameters are not yet optimised.
+This repository contains an extension for ASReview based on [xgboost](https://github.com/dmlc/xgboost).
+
+The hyperparameters are not yet optimised.
 
 ## Installation
 Install the new classifier with:
@@ -20,3 +22,8 @@ The new feature extractor can be used with `-m xgboost`:
 ```bash
 asreview simulate benchmark:van_de_Schoot_2017 -m xgboost
 ```
+
+Note that `TF-IDF` works best as FE.
+
+## To-Do
+CV the model every iteration.
