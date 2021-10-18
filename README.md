@@ -22,3 +22,5 @@ The new feature extractor can be used with `-m xgboost`:
 ```bash
 asreview simulate benchmark:van_de_Schoot_2017 -m xgboost
 ```
+
+Note that `TF-IDF` works best as FE.
