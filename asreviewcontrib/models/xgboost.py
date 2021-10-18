@@ -38,34 +38,37 @@ class XGBoost(BaseTrainClassifier):
 
     def _createClassifier(self):
         return xgb.XGBClassifier(
-            n_estimators = 100,
             eval_metric = "logloss", 
             use_label_encoder=False, 
             verbosity=1)
 
-            # base_score=0.5, booster='gbtree', colsample_bylevel=1, colsample_bynode=1,
-            # colsample_bytree=1, gamma=0, eval_metric = "logloss", gpu_id=-1,
-            # importance_type='gain', interaction_constraints='', learning_rate=0.300000012,
-            # max_delta_step=0, max_depth=6, min_child_weight=1, missing=nan,
-            # monotone_constraints='()', n_estimators=n_estimators, n_jobs=4,
-            # num_parallel_tree=1, random_state=0, reg_alpha=0, reg_lambda=1,
-            # scale_pos_weight=1, subsample=1, tree_method='exact', use_label_encoder=False,
-            # validate_parameters=1, verbosity=0
+            # base_score=0.5, booster='gbtree', colsample_bylevel=1,
+            # colsample_bynode=1, colsample_bytree=1, gamma=0,
+            # importance_type='gain', interaction_constraints='',
+            # learning_rate=0.300000012, max_delta_step=0, max_depth=6,
+            # min_child_weight=1, missing=nan, monotone_constraints='()',
+            # n_estimators=n_estimators, n_jobs=4, num_parallel_tree=1,
+            # random_state=0, reg_alpha=0, reg_lambda=1, scale_pos_weight=1,
+            # subsample=1, tree_method='exact', validate_parameters=1
 
     def _tune(self, X, y):
 
         clf = self._createClassifier()
         parameters = {
-            "eta"              : [ 0.01, 0.05],
-            "max_depth"        : [ 3, 10],
-            "gamma"            : [ 0.0, 0.2],
-            "colsample_bytree" : [ 0.3, 0.5]
+                    "n_estimators" : [10, 100, 1000],
+                    "max_depth": [3, 4, 5, 7],
+                    "learning_rate": [0.1, 0.01, 0.05],
+                    "gamma": [0, 0.25, 1],
+                    "reg_lambda": [0, 1, 10],
+                    "scale_pos_weight": [1, 3, 5],
+                    "subsample": [0.8],
+                    "colsample_bytree": [0.5],
             }
 
         grid = GridSearchCV(clf,
                             parameters, n_jobs=-1,
                             scoring="neg_log_loss",
-                            cv=3)
+                            cv=2)
 
         grid.fit(X, y)
 
