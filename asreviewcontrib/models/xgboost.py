@@ -63,7 +63,7 @@ class XGBoost(BaseTrainClassifier):
             }
 
         grid = GridSearchCV(clf,
-                            parameters, n_jobs=16,
+                            parameters, n_jobs=-1,
                             scoring="neg_log_loss",
                             cv=3)
 
