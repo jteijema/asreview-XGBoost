@@ -41,6 +41,7 @@ class XGBoost(BaseTrainClassifier):
             n_estimators = 100,
             eval_metric = "logloss", 
             use_label_encoder=False, 
+            n_jobs=192,
             verbosity=1)
 
             # base_score=0.5, booster='gbtree', colsample_bylevel=1, colsample_bynode=1,
@@ -63,7 +64,7 @@ class XGBoost(BaseTrainClassifier):
             }
 
         grid = GridSearchCV(clf,
-                            parameters, n_jobs=-1,
+                            parameters, n_jobs=192,
                             scoring="neg_log_loss",
                             cv=3)
 
