@@ -61,7 +61,7 @@ class XGBoost(BaseTrainClassifier):
 
         clf = self._createClassifier()
         parameters = {
-                    "learning_rate": [0.1, 0.2],
+                    "learning_rate": [0.1, 0.2, 0.3],
                     "gamma": [0, 0.25, 1],
             }
 
