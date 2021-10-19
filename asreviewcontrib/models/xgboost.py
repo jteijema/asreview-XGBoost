@@ -38,8 +38,14 @@ class XGBoost(BaseTrainClassifier):
 
     def _createClassifier(self):
         return xgb.XGBClassifier(
-            eval_metric = "logloss", 
-            use_label_encoder=False, 
+            eval_metric         = "logloss", 
+            use_label_encoder   = False, 
+            subsample           = 0.8,
+            n_estimators        = 100,
+            scale_pos_weight    = 1,
+            reg_lambda          = 0,
+            max_depth           = 6,
+            colsample_bytree    = 0.5,
             verbosity=1)
 
             # base_score=0.5, booster='gbtree', colsample_bylevel=1,
@@ -55,15 +61,10 @@ class XGBoost(BaseTrainClassifier):
 
         clf = self._createClassifier()
         parameters = {
-                    "n_estimators" : [10, 100, 1000],
-                    "max_depth": [3, 4, 5, 7],
-                    "learning_rate": [0.1, 0.01, 0.05],
+                    "learning_rate": [0.1, 0.2],
                     "gamma": [0, 0.25, 1],
-                    "reg_lambda": [0, 1, 10],
-                    "scale_pos_weight": [1, 3, 5],
-                    "subsample": [0.8],
-                    "colsample_bytree": [0.5],
             }
+
 
         grid = GridSearchCV(clf,
                             parameters, n_jobs=-1,
@@ -72,6 +73,6 @@ class XGBoost(BaseTrainClassifier):
 
         grid.fit(X, y)
 
-        print(grid.best_params_)
+        #print(grid.best_params_)
 
         return grid
